@@ -27,8 +27,8 @@
     <main>
       <div class="post-container">
         <div>
-          <div class="title">Заголовок</div>
-          <div class="info">Добавлено date_created</div>
+          <div class="title">{{post.title}}</div>
+          <div class="info">Добавлено: {{post.created_at|date:'d.m.Y'}}</div>
         </div>
         <div class="image">
           <img
@@ -36,7 +36,7 @@
             alt=""
           />
         </div>
-        <div class="post-body">Тело поста</div>
+        <div class="post-body">{{post.body}}</div>
       </div>
     </main>
   </body>

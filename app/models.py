@@ -5,7 +5,6 @@ class Post(models.Model):
     body = models.TextField()
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    # TODO: законспектировать
     image = models.ImageField(blank=True, default='default.png')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
 
