@@ -1,45 +1,25 @@
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-  </head>
-  <body>
-    <header>
-      <nav class="navbar">
-        <div class="navbar-start">
-          <a class="navbar-logo" href="">
-            <img
-              src="https://msk.top-academy.ru/dist/images/logo/step_logo_rus.svg"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-item">
-            <a class="button" href="{% url 'app:create_post' %}"> 
-              Создать пост 
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <div class="post-container">
-        <div>
-          <div class="title">{{post.title}}</div>
-          <div class="info">Добавлено: {{post.created_at|date:'d.m.Y'}}</div>
-        </div>
-        <div class="image">
-          <img
-            src="{{ post.image.url }}"
-            alt=""
-          />
-        </div>
-        <div class="post-body">{{post.body}}</div>
-      </div>
-    </main>
-  </body>
-</html>
+{% extends 'base_layout.html' %} 
+
+{% block content %}
+<div class="post-container">
+  <div class="header">
+    <div>
+      <div class="title">{{post.title}}</div>
+      <div class="info">Добавлено: {{post.created_at|date:'d.m.Y'}}</div>
+    </div>
+    <div class="buttons">
+      <a href="{% url 'app:edit_post' post.pk %}" class="button primary">
+       <ion-icon name="create-outline"></ion-icon>
+      </a>
+      <a href="" class="button danger">
+        <ion-icon name="trash-outline"></ion-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="image">
+    <img src="{{ post.image.url }}" alt="" />
+  </div>
+  <div class="post-body">{{post.body}}</div>
+</div>
+{% endblock %}

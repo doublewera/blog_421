@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </head>
   <body>
     <header>
       <nav class="navbar">
         <div class="navbar-start">
-          <a class="navbar-logo" href="">
+          <a class="navbar-logo" href="{% url 'app:home' %}">
             <img
               src="https://msk.top-academy.ru/dist/images/logo/step_logo_rus.svg"
               alt=""
@@ -20,18 +28,13 @@
         </div>
         <div class="navbar-menu">
           <div class="navbar-item">
-            <a class="button" href="{% url 'app:create_post' %}"> 
-              Создать пост 
+            <a class="button" href="{% url 'app:create_post' %}">
+              Создать пост
             </a>
           </div>
         </div>
       </nav>
     </header>
-    <main>
-      <div class="container">
-        {% block content %}
-        {% endblock %}
-      </div>
-    </main>
+    <main>{% block content %} {% endblock %}</main>
   </body>
 </html>
