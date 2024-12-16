@@ -1,4 +1,5 @@
 {% load static %}
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,18 +28,9 @@
       </nav>
     </header>
     <main>
-      <div class="post-container">
-        <div>
-          <div class="title">{{post.title}}</div>
-          <div class="info">Добавлено: {{post.created_at|date:'d.m.Y'}}</div>
-        </div>
-        <div class="image">
-          <img
-            src="{{ post.image.url }}"
-            alt=""
-          />
-        </div>
-        <div class="post-body">{{post.body}}</div>
+      <div class="container">
+        {% block content %}
+        {% endblock %}
       </div>
     </main>
   </body>

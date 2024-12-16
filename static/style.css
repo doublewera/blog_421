@@ -126,7 +126,7 @@ form {
 .field input[type="text"] {
   height: 35px;
 }
-.form button {
+form button {
   height: 35px;
   background: rgb(26, 191, 26);
   border: none;
