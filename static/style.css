@@ -183,6 +183,7 @@ form button {
 
 form .title {
   font-size: 25px;
+  text-align: center;
 }
 
 .flex-container {
@@ -215,4 +216,17 @@ form .title {
   text-decoration: none;
   font-size: 20px;
   text-align: center;
+}
+
+.redirect {
+  text-align: right;
+}
+.redirect a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.redirect a:hover {
+  text-decoration: underline;
 }
