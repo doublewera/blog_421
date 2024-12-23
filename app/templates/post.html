@@ -11,7 +11,7 @@
       <a href="{% url 'app:edit_post' post.pk %}" class="button primary">
        <ion-icon name="create-outline"></ion-icon>
       </a>
-      <a href="" class="button danger">
+      <a href="{% url 'app:delete_post' post.pk %}" class="button danger">
         <ion-icon name="trash-outline"></ion-icon>
       </a>
     </div>

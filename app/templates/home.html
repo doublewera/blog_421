@@ -2,17 +2,22 @@
 
 {% block content %}
   <div class="container">
-    {% for post in posts %}
-    <a class="post" href="{% url 'app:post' post.pk %}">
-      <div>
-        <div class="title">{{post.title}}</div>
-        <div class="author">Опубликовано: admin</div>
-      </div>
-      <div>
-        <div class="text">{{post.snippet}}</div>
-        <div class="date">{{post.created_at}}</div>
-      </div>
-    </a>
-    {% endfor %}
+    {% if posts %}
+      {% for post in posts %}
+      <a class="post" href="{% url 'app:post' post.pk %}">
+        <div>
+          <div class="title">{{post.title}}</div>
+          <div class="author">Опубликовано: admin</div>
+        </div>
+        <div>
+          <div class="text">{{post.snippet}}</div>
+          <div class="date">{{post.created_at}}</div>
+        </div>
+      </a>
+      {% endfor %}
+    {% else %}
+      <div class="title">Посты не найдены</div>
+    </div>
+    {% endif %}
   </div>
 {% endblock %}

@@ -118,6 +118,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-width: 30vw;
 }
 .field input[type="text"],
 .field input[type="password"],
