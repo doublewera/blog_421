@@ -7,7 +7,7 @@
       <a class="post" href="{% url 'app:post' post.pk %}">
         <div>
           <div class="title">{{post.title}}</div>
-          <div class="author">Опубликовано: admin</div>
+          <div class="author">Опубликовано: {{post.author}}</div>
         </div>
         <div>
           <div class="text">{{post.snippet}}</div>
