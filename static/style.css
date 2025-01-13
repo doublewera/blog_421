@@ -193,6 +193,7 @@ form .title {
 }
 .flex-container .image {
   width: 40vw;
+  padding: 50px;
 }
 .flex-container .image img {
   width: 100%;

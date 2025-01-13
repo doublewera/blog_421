@@ -1,0 +1,18 @@
+{% extends 'base_layout.html' %} 
+
+{% block content %}
+<div class="container">
+  <div class="flex-container">
+    <div class="image">
+      <img src="https://static-00.iconduck.com/assets.00/404-page-not-found-illustration-1024x499-muqmchqg.png" alt="" />
+    </div>
+    <div class="text">
+      <div class="title">
+        Страница не найдена <br>
+        Пожалуйста, вернитесь на главную
+      </div>
+      <a href="{% url 'app:home' %}" class="button">На главную</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

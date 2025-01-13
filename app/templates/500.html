@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %} 
+
+{% block content %}
+<div class="container">
+  <div class="flex-container">
+    <div class="image">
+      <img src="https://gitlab-org.gitlab.io/gitlab-svgs/dist/illustrations/error/error-500-lg.svg" alt="" />
+    </div>
+    <div class="text">
+      <div class="title">
+        Ошибка сервера
+      </div>
+      <a href="{% url 'app:home' %}" class="button">На главную</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

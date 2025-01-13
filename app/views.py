@@ -9,9 +9,7 @@ def home(request):
     posts = Post.objects.all()
     return render(request, "home.html", {"posts": posts})
 
-
 def post(request, pk):
-    # post_data = Post.objects.get_ob(id=pk) # было
     post_data = get_object_or_404(Post, pk=pk) # стало
     return render(request, "post.html", {"post": post_data})
 
