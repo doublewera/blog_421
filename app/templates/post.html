@@ -1,6 +1,4 @@
-{% extends 'base_layout.html' %} 
-
-{% block content %}
+{% extends 'base_layout.html' %} {% block content %}
 <div class="post-container">
   <div class="header">
     <div>
@@ -10,7 +8,7 @@
     {% if post.author == user or user.is_staff %}
     <div class="buttons">
       <a href="{% url 'app:edit_post' post.pk %}" class="button primary">
-       <ion-icon name="create-outline"></ion-icon>
+        <ion-icon name="create-outline"></ion-icon>
       </a>
       <a href="{% url 'app:delete_post' post.pk %}" class="button danger">
         <ion-icon name="trash-outline"></ion-icon>
@@ -23,5 +21,23 @@
     <img src="{{ post.image.url }}" alt="" />
   </div>
   <div class="post-body">{{post.body}}</div>
+  <hr />
+
+  <form class="comments" method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <input
+      type="text"
+      class="input"
+      name="{{field.name}}"
+      placeholder="Введите комментарий"
+    />
+    {% endfor %}
+
+    <div class="comments-list">
+      <div class="title">Пока нет комментариев</div>
+    </div>
+  </form>
 </div>
 {% endblock %}

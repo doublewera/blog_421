@@ -13,3 +13,13 @@ class Post(models.Model):
 
     def snippet(self):
         return self.body[:30] + '...'
+
+class Comment(models.Model):
+    body = models.TextField()
+    date_created = models.DateField(auto_now_add=True)
+    date_edited = models.DateField(auto_now=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.body

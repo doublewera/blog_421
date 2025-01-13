@@ -1,17 +1,24 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+
 
 def home(request):
     posts = Post.objects.all()
     return render(request, "home.html", {"posts": posts})
 
+
 def post(request, pk):
-    post_data = get_object_or_404(Post, pk=pk) # стало
-    return render(request, "post.html", {"post": post_data})
+    post_data = get_object_or_404(Post, pk=pk)
+    form = CommentForm()
+
+    if request.method == "POST":
+        create_comment(request, post_data)
+        return redirect("app:post", pk=post_data.pk)
+
+    return render(request, "post.html", {"post": post_data, "form": form})
 
 
 @login_required(login_url="users:login")
@@ -36,8 +43,7 @@ def edit_post(request, pk):
     post_data = Post.objects.get(id=pk)
 
     if post_data.author != request.user:
-        return render(request, '403.html')
-
+        return render(request, "403.html")
 
     form = PostForm(request.POST or None, request.FILES or None, instance=post_data)
 
@@ -53,10 +59,20 @@ def delete_post(request, pk):
     post_data = Post.objects.get(id=pk)
 
     if post_data.author != request.user:
-        return render(request, '403.html')
+        return render(request, "403.html")
 
     if request.method == "POST":
         post_data.delete()
         return redirect("app:home")
 
     return render(request, "delete_post.html", {"pk": pk})
+
+
+def create_comment(request, post_data):
+    form = CommentForm(request.POST)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post_data
+        comment.save()
