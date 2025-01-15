@@ -6,10 +6,12 @@
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
+
 body {
   height: 100vh;
   background: #f5f5dc;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -17,17 +19,21 @@ body {
   padding: 10px;
   height: 10vh;
 }
+
 .navbar-menu {
   display: flex;
   gap: 10px;
 }
+
 .navbar-start {
   width: 5%;
   cursor: pointer;
 }
+
 .navbar-start img {
   width: 100%;
 }
+
 .navbar .button {
   padding: 10px 20px;
   border: 1px solid lightgrey;
@@ -37,12 +43,15 @@ body {
   color: black;
   text-decoration: none;
 }
+
 .navbar .button:active {
   box-shadow: 0 0 5px 1px lightgrey;
 }
+
 main {
   height: 90vh;
 }
+
 .container {
   height: 100%;
   display: flex;
@@ -52,6 +61,7 @@ main {
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .post {
   background: white;
   padding: 20px;
@@ -67,13 +77,16 @@ main {
   text-decoration: none;
   color: black;
 }
+
 .post:hover {
   transform: scale(1.05);
 }
+
 .container .title {
   font-weight: bold;
   font-size: 2rem;
 }
+
 .author,
 .date {
   color: grey;
@@ -84,21 +97,26 @@ main {
   margin: auto;
   padding-top: 30px;
 }
+
 .post-container .title {
   font-size: 50px;
   font-weight: bold;
 }
+
 .post-container .info {
   color: grey;
   font-style: italic;
 }
+
 .post-container .image {
   width: 100%;
   margin: 20px 0;
 }
+
 .post-container .image img {
   width: 100%;
 }
+
 .post-container .post-body {
   font-size: 20px;
   line-height: 1.5;
@@ -110,6 +128,7 @@ main {
   justify-content: center;
   align-items: center;
 }
+
 form {
   background: white;
   border-radius: 20px;
@@ -120,6 +139,7 @@ form {
   gap: 15px;
   min-width: 30vw;
 }
+
 .field input[type="text"],
 .field input[type="password"],
 .field textarea {
@@ -129,10 +149,12 @@ form {
   outline: none;
   padding: 0 10px;
 }
+
 .field input[type="text"],
 .field input[type="password"] {
   height: 35px;
 }
+
 form button {
   height: 35px;
   background: rgb(26, 191, 26);
@@ -141,11 +163,13 @@ form button {
   border-radius: 3px;
   cursor: pointer;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .buttons .button {
   border: 1px solid lightgrey;
   padding: 5px 15px;
@@ -158,25 +182,31 @@ form button {
   justify-content: center;
   align-items: center;
 }
+
 .buttons {
   display: flex;
   gap: 20px;
   justify-content: center;
 }
+
 .primary {
   background: rgb(26, 191, 26);
   color: white;
 }
+
 .danger {
   background: red;
   color: white;
 }
+
 .buttons .button:active {
   box-shadow: 0 0 5px 1px lightgrey;
 }
+
 .danger:hover {
   background: darkred;
 }
+
 .primary:hover {
   background: darkgreen;
 }
@@ -191,22 +221,27 @@ form .title {
   align-items: center;
   justify-content: center;
 }
+
 .flex-container .image {
   width: 40vw;
   padding: 50px;
 }
+
 .flex-container .image img {
   width: 100%;
 }
+
 .flex-container .text {
   width: 30vw;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .flex-container .text .title {
   font-size: 30px;
 }
+
 .flex-container .button {
   background: rgb(26, 191, 26);
   color: white;
@@ -222,6 +257,7 @@ form .title {
 .redirect {
   text-align: right;
 }
+
 .redirect a {
   text-decoration: none;
   color: black;
@@ -237,6 +273,7 @@ form .title {
   background: none;
   box-shadow: none;
 }
+
 .comments .input {
   width: 100%;
   height: 5vh;
@@ -245,8 +282,105 @@ form .title {
   padding: 0 10px;
   font-size: 18px;
 }
+
 .comments .title {
   font-size: 25px;
   text-align: center;
   padding: 20px 0;
+}
+
+.comment {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid lightgrey;
+  width: 20vw;
+}
+
+.comment-head,
+.comment-body,
+.comment-footer,
+.user-data {
+  display: flex;
+}
+
+.comment .avatar {
+  width: 15%;
+}
+
+.comment img {
+  width: 100%;
+}
+
+.comment-head {
+  gap: 20px;
+}
+
+.user-data {
+  gap: 10px;
+}
+
+.user-data .date {
+  font-size: 12px;
+}
+
+.comment-body {
+  padding: 20px 0;
+}
+
+.comment .btn {
+  background: none !important;
+  color: grey;
+  border: 1px solid lightgrey;
+  padding: 10px;
+}
+
+.comment-footer {
+  gap: 20px;
+  align-items: center;
+}
+
+.reply:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.comments-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-buttons {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+}
+
+.comment-button {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.edited {
+  text-align: right;
+  font-size: 12px;
+  color: lightgrey;
+}
+
+.post-buttons {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.post-button {
+  padding: 15px;
+  color: black;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
 }

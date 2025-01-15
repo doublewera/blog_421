@@ -7,6 +7,8 @@ class Post(models.Model):
     updated_at = models.DateField(auto_now=True)
     image = models.ImageField(blank=True, default='default.png')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
+    likes = models.ManyToManyField('auth.User', related_name='likes')
+    dislikes = models.ManyToManyField('auth.User', related_name='dislikes')
 
     def __str__(self):
         return self.title   
@@ -20,6 +22,7 @@ class Comment(models.Model):
     date_edited = models.DateField(auto_now=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    is_edited = models.BooleanField(default=False)
 
     def __str__(self):
         return self.body

@@ -22,21 +22,69 @@
   </div>
   <div class="post-body">{{post.body}}</div>
   <hr />
+  <div class="post-buttons">
+    <a href="{% url 'app:post_like' post.pk %}" 
+      class="post-button {% if user in post.likes.all %} primary {% endif %}">
+      <ion-icon name="thumbs-up-outline"></ion-icon>
+    </a>
+    <a href="{% url 'app:post_dislike' post.pk %}"
+      class="post-button {% if user in post.dislikes.all %} danger {% endif %}">
+      <ion-icon name="thumbs-down-outline"></ion-icon>
+    </a>
+  </div>
 
   <form class="comments" method="post">
     {% csrf_token %}
-    
+
     {% for field in form %}
-    <input
-      type="text"
-      class="input"
-      name="{{field.name}}"
-      placeholder="Введите комментарий"
-    />
+    <input type="text" class="input" name="{{field.name}}" placeholder="Введите комментарий" />
     {% endfor %}
 
+    <div class="title">Комментариев: {{ post.comment_set.all.count }}</div>
+
     <div class="comments-list">
-      <div class="title">Пока нет комментариев</div>
+      {% for comment in post.comment_set.all %}
+      <div class="comment">
+        {% if user == comment.author %}
+        <div class="comment-buttons">
+          <a class="comment-button primary" href="{% url 'app:comment_edit' comment.pk %}">
+            <ion-icon name="create-outline"></ion-icon>
+          </a>
+          <a class="comment-button danger" href="{% url 'app:comment_delete' comment.pk %}">
+            <ion-icon name="trash-outline"></ion-icon>
+          </a>
+        </div>
+        {% endif %}
+        <div class="comment-head">
+          <div class="avatar">
+            <img src="https://static-00.iconduck.com/assets.00/avatar-default-icon-2048x2048-h6w375ur.png" alt="">
+          </div>
+          <div class="user-data">
+            <div class="username">{{comment.author}}</div>
+            <div class="date">{{comment.date_created}}</div>
+          </div>
+        </div>
+        <div class="comment-body">
+          {{comment.body}}
+        </div>
+        <div class="comment-footer">
+          <div class="buttons">
+            <button class="btn">
+              <ion-icon name="thumbs-up-outline"></ion-icon>
+            </button>
+            <button class="btn">
+              <ion-icon name="thumbs-down-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="reply">Reply</div>
+        </div>
+        <div class="edited">
+          {% if comment.is_edited %}
+          Отредактировано
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </form>
 </div>

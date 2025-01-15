@@ -76,3 +76,62 @@ def create_comment(request, post_data):
         comment.author = request.user
         comment.post = post_data
         comment.save()
+
+
+
+def comment_delete(request, pk):
+    comment_data = Comment.objects.get(id=pk)
+
+    if comment_data.author != request.user:
+        return render(request, "403.html")
+
+    if request.method == "POST":
+        comment_data.delete()
+        return redirect("app:post", pk=comment_data.post.pk)
+
+    return render(request, "comment_delete.html", {"comment": comment_data})
+
+
+@login_required(login_url="users:login")
+def comment_edit(request, pk):
+    comment_data = Comment.objects.get(id=pk)
+
+    if comment_data.author != request.user:
+        return render(request, "403.html")
+
+    form = CommentForm(request.POST or None, instance=comment_data)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+
+        if not instance.is_edited:
+            instance.is_edited = True
+        
+        instance.save()
+
+        return redirect("app:post", pk=comment_data.post.pk)
+
+    return render(request, "post_form.html", {"form": form})
+
+def post_like(request, pk):
+    post_data = Post.objects.get(pk=pk)
+
+    if request.user not in post_data.likes.all():
+        post_data.likes.add(request.user)
+        post_data.dislikes.remove(request.user)
+    elif request.user in post_data.likes.all():
+        post_data.likes.remove(request.user)
+
+    return redirect('app:post', pk=pk)
+
+
+def post_dislike(request, pk):
+    post_data = Post.objects.get(pk=pk)
+
+    if request.user not in post_data.dislikes.all():
+        post_data.dislikes.add(request.user)
+        post_data.likes.remove(request.user)
+    elif request.user in post_data.dislikes.all():
+        post_data.dislikes.remove(request.user)
+
+    return redirect('app:post', pk=pk)
