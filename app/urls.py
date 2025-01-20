@@ -11,4 +11,7 @@ urlpatterns = [
     path('comment_edit/<int:pk>', comment_edit, name='comment_edit'),
     path('post_like/<int:pk>', post_like, name='post_like'),
     path('post_dislike/<int:pk>', post_dislike, name='post_dislike'),
-]
+    path('comment_like/<int:pk>', comment_like, name='comment_like'),
+    path('comment_dislike/<int:pk>', comment_dislike, name='comment_dislike'),
+    path('reply/<int:pk>/', reply, name='reply')
+] 

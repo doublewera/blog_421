@@ -295,6 +295,10 @@ form .title {
   border-radius: 10px;
   border: 1px solid lightgrey;
   width: 20vw;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .comment-head,
@@ -329,10 +333,14 @@ form .title {
 }
 
 .comment .btn {
-  background: none !important;
-  color: grey;
+  color: black;
   border: 1px solid lightgrey;
   padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
 .comment-footer {
@@ -383,4 +391,20 @@ form .title {
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.reply {
+  text-decoration: none;
+  color: black;
+}
+
+.is-reply {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: grey;
 }

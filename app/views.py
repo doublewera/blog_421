@@ -35,7 +35,7 @@ def create_post(request):
 
             return redirect("app:home")
 
-    return render(request, "post_form.html", {"form": form})
+    return render(request, "form.html", {"form": form})
 
 
 @login_required(login_url="users:login")
@@ -51,7 +51,7 @@ def edit_post(request, pk):
         form.save()
         return redirect("app:post", pk=pk)
 
-    return render(request, "post_form.html", {"form": form})
+    return render(request, "form.html", {"form": form})
 
 
 @login_required(login_url="users:login")
@@ -111,8 +111,9 @@ def comment_edit(request, pk):
 
         return redirect("app:post", pk=comment_data.post.pk)
 
-    return render(request, "post_form.html", {"form": form})
+    return render(request, "form.html", {"form": form})
 
+@login_required(login_url='users:login')
 def post_like(request, pk):
     post_data = Post.objects.get(pk=pk)
 
@@ -124,7 +125,7 @@ def post_like(request, pk):
 
     return redirect('app:post', pk=pk)
 
-
+@login_required(login_url='users:login')
 def post_dislike(request, pk):
     post_data = Post.objects.get(pk=pk)
 
@@ -135,3 +136,47 @@ def post_dislike(request, pk):
         post_data.dislikes.remove(request.user)
 
     return redirect('app:post', pk=pk)
+
+@login_required(login_url='users:login')
+def comment_like(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    user = request.user
+    likes = comment.likes
+
+    if user not in likes.all():
+        likes.add(user)
+        comment.dislikes.remove(user)
+    elif user in likes.all():
+        likes.remove(user)
+    
+    return redirect('app:post', pk=comment.post.pk)
+
+@login_required(login_url='users:login')
+def comment_dislike(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    user = request.user
+    dislikes = comment.dislikes
+
+    if user not in dislikes.all():
+        dislikes.add(user)
+        comment.likes.remove(user)
+    elif user in dislikes.all():
+        dislikes.remove(user)
+    
+    return redirect('app:post', pk=comment.post.pk)
+
+
+def reply(request, pk):
+    form = CommentForm(request.POST or None)
+
+    if form.is_valid():
+        parent_comment = Comment.objects.get(pk=pk)
+        instance = form.save(commit=False)
+
+        instance.parent = parent_comment
+        instance.author = request.user
+        instance.post = parent_comment.post
+        instance.save()
+        return redirect('app:post', pk=parent_comment.post.pk)
+
+    return render(request, 'form.html', {'form': form})
