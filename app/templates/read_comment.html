@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="parent-block">
+  <div class="block">
+    <a href="{% url 'app:post' comment.post.pk %}" class="button">Назад к посту</a>
+    <div class="title">Пост: {{comment.post.title}}</div>
+    <div class="comment-text">Полный комментарий: {{comment.body}}</div>
+    <div class="date-added">Дата добавления: {{comment.date_created|date:'d.m.Y'}}</div>
+    <div class="comment-author">Автор: {{comment.author}}</div>
+
+    <div class="buttons">
+      <a href="{% url 'app:home' %}" class="button">На главную</a>
+      <a href="{%  url 'app:reply' comment.pk %}" class="button">
+        <ion-icon name="arrow-undo"></ion-icon>
+        <span>Ответить</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

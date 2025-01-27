@@ -6,7 +6,7 @@
       {% for post in posts %}
       <a class="post" href="{% url 'app:post' post.pk %}">
         <div>
-          <div class="title">{{post.title}}</div>
+          <div class="title">{{post.title_snippet}}</div>
           <div class="author">Опубликовано: {{post.author}}</div>
         </div>
         <div>

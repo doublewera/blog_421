@@ -3,6 +3,7 @@ from .models import *
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -12,13 +13,22 @@ def home(request):
 
 def post(request, pk):
     post_data = get_object_or_404(Post, pk=pk)
+    post_comments = Comment.objects.filter(post=post_data)
+    post_comments = Paginator(post_comments, 3)
+    page = request.GET.get('page')
+    post_comments = post_comments.get_page(page)
+
     form = CommentForm()
 
     if request.method == "POST":
         create_comment(request, post_data)
         return redirect("app:post", pk=post_data.pk)
 
-    return render(request, "post.html", {"post": post_data, "form": form})
+    return render(
+        request,
+        "post.html",
+        {"post": post_data, "form": form, "post_comments": post_comments},
+    )
 
 
 @login_required(login_url="users:login")
@@ -78,7 +88,6 @@ def create_comment(request, post_data):
         comment.save()
 
 
-
 def comment_delete(request, pk):
     comment_data = Comment.objects.get(id=pk)
 
@@ -106,14 +115,15 @@ def comment_edit(request, pk):
 
         if not instance.is_edited:
             instance.is_edited = True
-        
+
         instance.save()
 
         return redirect("app:post", pk=comment_data.post.pk)
 
     return render(request, "form.html", {"form": form})
 
-@login_required(login_url='users:login')
+
+@login_required(login_url="users:login")
 def post_like(request, pk):
     post_data = Post.objects.get(pk=pk)
 
@@ -123,9 +133,10 @@ def post_like(request, pk):
     elif request.user in post_data.likes.all():
         post_data.likes.remove(request.user)
 
-    return redirect('app:post', pk=pk)
+    return redirect("app:post", pk=pk)
 
-@login_required(login_url='users:login')
+
+@login_required(login_url="users:login")
 def post_dislike(request, pk):
     post_data = Post.objects.get(pk=pk)
 
@@ -135,9 +146,10 @@ def post_dislike(request, pk):
     elif request.user in post_data.dislikes.all():
         post_data.dislikes.remove(request.user)
 
-    return redirect('app:post', pk=pk)
+    return redirect("app:post", pk=pk)
 
-@login_required(login_url='users:login')
+
+@login_required(login_url="users:login")
 def comment_like(request, pk):
     comment = Comment.objects.get(pk=pk)
     user = request.user
@@ -148,10 +160,11 @@ def comment_like(request, pk):
         comment.dislikes.remove(user)
     elif user in likes.all():
         likes.remove(user)
-    
-    return redirect('app:post', pk=comment.post.pk)
 
-@login_required(login_url='users:login')
+    return redirect("app:post", pk=comment.post.pk)
+
+
+@login_required(login_url="users:login")
 def comment_dislike(request, pk):
     comment = Comment.objects.get(pk=pk)
     user = request.user
@@ -162,8 +175,8 @@ def comment_dislike(request, pk):
         comment.likes.remove(user)
     elif user in dislikes.all():
         dislikes.remove(user)
-    
-    return redirect('app:post', pk=comment.post.pk)
+
+    return redirect("app:post", pk=comment.post.pk)
 
 
 def reply(request, pk):
@@ -177,6 +190,11 @@ def reply(request, pk):
         instance.author = request.user
         instance.post = parent_comment.post
         instance.save()
-        return redirect('app:post', pk=parent_comment.post.pk)
+        return redirect("app:post", pk=parent_comment.post.pk)
 
-    return render(request, 'form.html', {'form': form})
+    return render(request, "form.html", {"form": form})
+
+
+def read_comment(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    return render(request, "read_comment.html", {"comment": comment})

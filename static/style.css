@@ -408,3 +408,84 @@ form .title {
   align-items: center;
   color: grey;
 }
+
+.comment-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-body a {
+  border: 1px solid lightgrey;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
+  color: grey;
+}
+
+.block {
+  width: 97%;
+  height: 95%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #f3f3f3;
+  border: 1px solid lightgrey;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 20px;
+}
+.parent-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.block .button {
+  padding: 10px 20px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+  width: 150px;
+}
+.block > .button {
+  background: lightgrey;
+}
+.block .buttons .button:first-child {
+  background: lightblue;
+}
+.block .buttons .button:last-child {
+  background: lightsteelblue;
+}
+.block .buttons {
+  justify-content: left;
+}
+.pagination-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 0;
+}
+.pagination-buttons .button {
+  border: 1px solid lightgrey;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  background: white;
+}
+.pagination-buttons .current-page {
+  font-size: 25px;
+  font-weight: bold;
+}
+.previous,
+.next {
+  display: flex;
+  gap: 10px;
+}

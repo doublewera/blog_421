@@ -15,6 +15,10 @@ class Post(models.Model):
 
     def snippet(self):
         return self.body[:30] + '...'
+    
+    def title_snippet(self):
+        return self.title[:20] + '...' 
+
 
 class Comment(models.Model):
     body = models.TextField()
