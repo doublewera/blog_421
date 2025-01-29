@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-  <div class="container">
+  <div class="home-container">
     {% if posts %}
       {% for post in posts %}
       <a class="post" href="{% url 'app:post' post.pk %}">
@@ -13,6 +13,24 @@
           <div class="text">{{post.snippet}}</div>
           <div class="date">{{post.created_at}}</div>
         </div>
+        <div class="post-statistics">
+          <div class="stat">
+            <ion-icon name="thumbs-up"></ion-icon>
+            {{post.likes.count}}
+          </div>
+          <div class="stat">
+            <ion-icon name="thumbs-down"></ion-icon>
+            {{post.dislikes.count}}
+          </div>
+          <div class="stat">
+            <ion-icon name="chatbubble"></ion-icon>
+            {{post.comment_set.count}}
+          </div>
+          <div class="stat">
+            <ion-icon name="eye"></ion-icon>
+            {{post.views.count}}
+          </div>
+        </div>
       </a>
       {% endfor %}
     {% else %}
@@ -20,4 +38,11 @@
     </div>
     {% endif %}
   </div>
+  {% if posts.count < all_posts_count and all_posts_count > 0 %}
+  <div class="show-more">
+    <a class="button primary" href="{% url 'app:home' %}?quantity={{posts.count|add:3}}">
+      Показать больше
+    </a>
+  </div>
+  {% endif %}
 {% endblock %}

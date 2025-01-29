@@ -9,6 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
     likes = models.ManyToManyField('auth.User', related_name='likes')
     dislikes = models.ManyToManyField('auth.User', related_name='dislikes')
+    views = models.ManyToManyField('auth.User', related_name='views')
 
     def __str__(self):
         return self.title   

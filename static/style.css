@@ -37,7 +37,6 @@ body {
 .navbar .button {
   padding: 10px 20px;
   border: 1px solid lightgrey;
-  background: white;
   border-radius: 5px;
   cursor: pointer;
   color: black;
@@ -191,12 +190,12 @@ form button {
 
 .primary {
   background: rgb(26, 191, 26);
-  color: white;
+  color: white !important;
 }
 
 .danger {
   background: red;
-  color: white;
+  color: white !important;
 }
 
 .buttons .button:active {
@@ -488,4 +487,77 @@ form .title {
 .next {
   display: flex;
   gap: 10px;
+}
+
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  gap: 20px;
+  justify-content: center;
+  padding: 50px 0;
+}
+.home-container .title {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.show-more {
+  text-align: center;
+  padding: 50px 0;
+}
+.show-more .button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+.to-start {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: lightgrey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.post-statistics {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  color: grey;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-item form {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  min-width: auto;
+}
+.navbar-item form input {
+  height: 45px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 0 10px;
+  outline: none;
+}
+.navbar-menu {
+  align-items: center;
 }

@@ -4,18 +4,33 @@ from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 def home(request):
     posts = Post.objects.all()
-    return render(request, "home.html", {"posts": posts})
+    all_posts_count = posts.count()
+    quantity = int(request.GET.get("quantity", 3))
+    posts = posts[:quantity]
+    q = request.GET.get("q")
+
+    if q:
+        posts = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+
+    return render(
+        request, "home.html", {"posts": posts, "all_posts_count": all_posts_count}
+    )
 
 
 def post(request, pk):
     post_data = get_object_or_404(Post, pk=pk)
+
+    if request.user.is_authenticated:
+        post_data.views.add(request.user)
+
     post_comments = Comment.objects.filter(post=post_data)
     post_comments = Paginator(post_comments, 3)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     post_comments = post_comments.get_page(page)
 
     form = CommentForm()
